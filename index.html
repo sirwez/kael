@@ -3,523 +3,661 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Narrative Observatory | Portfolio Interativo</title>
-  <meta name="description" content="Prova de conceito interativa para portfolio de designer de narrativa de games." />
- 
+  <title>Kael Angeli — Narrative Designer Portfolio</title>
+  <meta name="description" content="Prova de conceito de portfólio objetivo e interativo para narrative designer de games." />
   <script src="https://cdn.tailwindcss.com"></script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
-            display: ['Instrument Serif', 'serif'],
+            display: ['Space Grotesk', 'sans-serif']
           },
           colors: {
-            void: '#080A12',
-            night: '#101522',
-            ink: '#15151C',
-            cream: '#F3EDE1',
-            mist: '#C9D1D9',
-            neon: '#9CF6F6',
-            amber: '#FFC857',
-            rose: '#FF5C8A',
-            violet: '#8F6BFF',
-            moss: '#7EA172',
+            wine: '#6F0D25',
+            wine2: '#4E071A',
+            cream: '#FFF3DF',
+            peach: '#FFBE7B',
+            pink: '#FF5C8A',
+            cyan: '#9CF6F6',
+            ink: '#14070D',
+            card: '#7C1530'
           },
           boxShadow: {
-            neon: '0 0 40px rgba(156,246,246,.25)',
-            rose: '0 0 45px rgba(255,92,138,.22)',
-            amber: '0 0 45px rgba(255,200,87,.18)',
-            deep: '0 30px 120px rgba(0,0,0,.45)',
+            glow: '0 0 50px rgba(255,190,123,.20)',
+            deep: '0 30px 100px rgba(20,7,13,.35)'
           }
         }
       }
     }
   </script>
-
   <style>
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #080A12;
-      color: #F3EDE1;
+      font-family: Inter, sans-serif;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255,190,123,.16), transparent 32%),
+        radial-gradient(circle at 85% 10%, rgba(156,246,246,.12), transparent 30%),
+        linear-gradient(180deg, #6F0D25 0%, #4E071A 50%, #240711 100%);
+      color: #FFF3DF;
+      min-height: 100vh;
       overflow-x: hidden;
     }
-
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(143,107,255,.24), transparent 34%),
-        radial-gradient(circle at 80% 0%, rgba(255,92,138,.19), transparent 28%),
-        radial-gradient(circle at 50% 80%, rgba(156,246,246,.13), transparent 34%),
-        linear-gradient(180deg, #080A12, #0D1020 45%, #080A12);
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      pointer-events: none;
-      opacity: .08;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    }
-
-    .starfield {
+      content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: -1;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,.7) 1px, transparent 1px),
-        radial-gradient(circle, rgba(156,246,246,.5) 1px, transparent 1px);
-      background-size: 80px 80px, 130px 130px;
-      animation: drift 30s linear infinite;
-      opacity: .45;
+      opacity: .055;
+      z-index: 100;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     }
-
-    @keyframes drift {
-      0% { transform: translate3d(0,0,0); }
-      100% { transform: translate3d(-80px,80px,0); }
-    }
-
     .glass {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 30px 120px rgba(0,0,0,.35);
-      backdrop-filter: blur(20px);
+      background: rgba(255,255,255,.075);
+      border: 1px solid rgba(255,243,223,.15);
+      backdrop-filter: blur(18px);
     }
-
-    .grid-glow {
-      background-image:
-        linear-gradient(rgba(156,246,246,.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(156,246,246,.08) 1px, transparent 1px);
-      background-size: 54px 54px;
-      mask-image: radial-gradient(circle at center, black 35%, transparent 75%);
+    .pixel {
+      image-rendering: auto;
     }
-
-    .orb {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      background: #9CF6F6;
-      box-shadow: 0 0 26px rgba(156,246,246,.95), 0 0 90px rgba(156,246,246,.35);
-      cursor: pointer;
-      transition: .25s ease;
+    .game-card {
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
     }
-
-    .orb::before {
-      content: '';
-      position: absolute;
-      inset: -12px;
-      border: 1px solid rgba(156,246,246,.25);
-      border-radius: 999px;
-      animation: pulse 2.4s ease infinite;
+    .game-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,190,123,.75);
+      background: rgba(255,255,255,.11);
     }
-
-    .orb:hover, .orb.active {
-      transform: scale(1.45);
-      background: #FFC857;
-      box-shadow: 0 0 28px rgba(255,200,87,.9), 0 0 100px rgba(255,200,87,.4);
+    .game-card.active {
+      border-color: #FFBE7B;
+      box-shadow: 0 0 0 3px rgba(255,190,123,.18), 0 26px 70px rgba(0,0,0,.25);
     }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(.86); opacity: .45; }
-      50% { transform: scale(1.25); opacity: .05; }
-    }
-
-    .timeline-dot.active {
-      background: #FFC857;
-      color: #080A12;
-      box-shadow: 0 0 30px rgba(255,200,87,.45);
-    }
-
-    .artifact-card {
-      transform-style: preserve-3d;
-      transition: transform .35s ease, border .35s ease, background .35s ease;
-    }
-
-    .artifact-card:hover {
-      transform: translateY(-8px) rotateX(4deg) rotateY(-4deg);
-      border-color: rgba(156,246,246,.45);
-      background: rgba(156,246,246,.08);
-    }
-
-    .scanline {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .scanline::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent, rgba(156,246,246,.08), transparent);
-      height: 120px;
-      animation: scan 4s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes scan {
-      0% { transform: translateY(-160px); }
-      100% { transform: translateY(520px); }
-    }
-
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
-      transition: .8s ease;
+      transform: translateY(18px);
+      transition: .7s ease;
     }
-
     .reveal.active {
       opacity: 1;
       transform: translateY(0);
     }
-
-    .marquee-track { animation: marquee 24s linear infinite; }
-
+    .marquee-track {
+      animation: marquee 28s linear infinite;
+    }
     @keyframes marquee {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
     }
+    .filter.active {
+      background: #FFF3DF;
+      color: #4E071A;
+      border-color: #FFF3DF;
+    }
+    .focus-ring {
+      outline: none;
+    }
+    .focus-ring:focus {
+      box-shadow: 0 0 0 4px rgba(255,190,123,.32);
+    }
+    .screenline {
+      background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 100% 7px;
+    }
 
-    .chapter-panel { display: none; }
-    .chapter-panel.active { display: block; }
+    .blog-filter.active {
+      background: #FFF3DF;
+      color: #4E071A;
+      border-color: #FFF3DF;
+    }
+    .post-card {
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+    .post-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(156,246,246,.55);
+      background: rgba(255,255,255,.11);
+    }
   </style>
 </head>
 
 <body>
-  <div class="starfield"></div>
-
-  <header class="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-void/70 backdrop-blur-2xl">
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-cream/10 bg-wine2/80 backdrop-blur-2xl">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-      <a href="#inicio" class="flex items-center gap-3">
-        <span class="grid h-11 w-11 place-items-center rounded-2xl bg-cream text-void shadow-neon">◈</span>
+      <a href="#home" class="flex items-center gap-3">
+        <span class="grid h-11 w-11 place-items-center rounded-2xl bg-cream text-wine2 font-black shadow-glow">K</span>
         <span>
-          <strong class="block text-xs uppercase tracking-[.32em] text-cream">Narrative</strong>
-          <span class="block text-xs text-cream/50">Observatory</span>
+          <strong class="block font-display text-sm uppercase tracking-[.22em]">Kael Angeli</strong>
+          <span class="block text-xs text-cream/55">Game writer · Narrative designer</span>
         </span>
       </a>
 
-      <nav class="hidden items-center gap-7 text-sm font-bold text-cream/60 md:flex">
-        <a href="#observatorio" class="transition hover:text-neon">Observatório</a>
-        <a href="#projetos" class="transition hover:text-neon">Casos</a>
-        <a href="#laboratorio" class="transition hover:text-neon">Laboratório</a>
-        <a href="#contato" class="transition hover:text-neon">Contato</a>
+      <nav class="hidden items-center gap-7 text-sm font-bold text-cream/65 md:flex">
+        <a class="hover:text-peach" href="#games">Games</a>
+        <a class="hover:text-peach" href="#case-study">Case Study</a>
+        <a class="hover:text-peach" href="#blog">Blog</a>
+        <a class="hover:text-peach" href="#about">About</a>
+        <a class="hover:text-peach" href="#contact">Contact</a>
       </nav>
 
-      <button id="menuButton" class="rounded-full border border-white/15 px-4 py-2 text-sm font-black text-cream md:hidden">Menu</button>
-      <a href="#observatorio" class="hidden rounded-full bg-neon px-5 py-3 text-sm font-black text-void shadow-neon transition hover:-translate-y-0.5 md:inline-flex">Entrar na narrativa</a>
+      <button id="menuBtn" class="rounded-full border border-cream/20 px-4 py-2 text-sm font-black md:hidden">Menu</button>
+      <a href="#games" class="hidden rounded-full bg-cream px-5 py-3 text-sm font-black text-wine2 transition hover:-translate-y-0.5 md:inline-flex">View portfolio</a>
     </div>
-    <div id="mobileMenu" class="hidden border-t border-white/10 bg-void px-5 py-4 md:hidden">
-      <div class="grid gap-4 text-sm font-bold text-cream/80">
-        <a href="#observatorio">Observatório</a>
-        <a href="#projetos">Casos</a>
-        <a href="#laboratorio">Laboratório</a>
-        <a href="#contato">Contato</a>
+
+    <div id="mobileMenu" class="hidden border-t border-cream/10 bg-wine2 px-5 py-4 md:hidden">
+      <div class="grid gap-4 text-sm font-bold text-cream/75">
+        <a href="#games">Games</a>
+        <a href="#case-study">Case Study</a>
+        <a href="#blog">Blog</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
   </header>
 
-  <main id="inicio" class="relative min-h-screen overflow-hidden pt-28">
-    <div class="grid-glow absolute inset-0 -z-10"></div>
-
-    <section class="mx-auto grid max-w-7xl items-center gap-10 px-5 pb-20 pt-14 lg:grid-cols-[1.02fr_.98fr] lg:px-8 lg:pt-24">
+  <main id="home" class="pt-28">
+    <section class="mx-auto grid max-w-7xl gap-10 px-5 pb-16 pt-14 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:pb-24 lg:pt-24">
       <div class="reveal">
-        <div class="mb-6 inline-flex items-center gap-3 rounded-full border border-neon/25 bg-neon/8 px-4 py-2 text-xs font-black uppercase tracking-[.25em] text-neon">
-          <span class="h-2 w-2 rounded-full bg-neon shadow-neon"></span>
-          Portfolio como experiência jogável
+        <div class="mb-6 inline-flex items-center gap-3 rounded-full border border-peach/30 bg-peach/10 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-peach">
+          <span class="h-2 w-2 rounded-full bg-peach"></span>
+          Objective portfolio + interactive narrative
         </div>
-        <h1 class="font-display text-6xl leading-[.86] tracking-[-.06em] text-cream sm:text-7xl lg:text-9xl">
-          Não conte a história. Faça o visitante descobri-la.
+
+        <h1 class="font-display text-5xl font-bold leading-[.94] tracking-[-.05em] sm:text-7xl lg:text-8xl">
+          Games, writing and narrative decisions — all in one clear place.
         </h1>
-        <p class="mt-8 max-w-2xl text-lg leading-8 text-cream/65">
-          Uma prova de conceito para designer de narrativa de games: o site vira uma interface de investigação, onde cada projeto é visto por escolhas, consequências, personagens, ritmo emocional e pistas espalhadas pelo mundo.
+
+        <p class="mt-7 max-w-2xl text-lg leading-8 text-cream/72">
+          A focused portfolio for job applications: fast to evaluate, easy to browse, but with interactive layers that show how the narrative work was built.
         </p>
+
         <div class="mt-9 flex flex-col gap-4 sm:flex-row">
-          <a href="#observatorio" class="rounded-full bg-neon px-7 py-4 text-center text-sm font-black text-void shadow-neon transition hover:-translate-y-1">Explorar observatório</a>
-          <a href="#laboratorio" class="rounded-full border border-white/15 bg-white/5 px-7 py-4 text-center text-sm font-black text-cream transition hover:-translate-y-1 hover:border-neon/50">Testar escolhas</a>
+          <a href="#games" class="rounded-full bg-cream px-7 py-4 text-center text-sm font-black text-wine2 shadow-glow transition hover:-translate-y-1">Browse games</a>
+          <a href="#blog" class="rounded-full border border-cream/20 bg-white/5 px-7 py-4 text-center text-sm font-black text-cream transition hover:-translate-y-1 hover:border-peach">Read articles</a>
         </div>
-      </div>
 
-      <div class="reveal relative min-h-[560px] rounded-[2.5rem] border border-white/10 bg-white/[.035] p-4 shadow-deep backdrop-blur-xl">
-        <div class="absolute inset-4 rounded-[2rem] border border-neon/10 bg-void/50"></div>
-        <div id="heroMap" class="relative h-[528px] overflow-hidden rounded-[2rem] scanline">
-          <canvas id="constellationCanvas" class="absolute inset-0 h-full w-full"></canvas>
-
-          <div class="orb active" style="left: 48%; top: 12%;" data-node="premissa"></div>
-          <div class="orb" style="left: 18%; top: 34%;" data-node="personagem"></div>
-          <div class="orb" style="left: 68%; top: 31%;" data-node="conflito"></div>
-          <div class="orb" style="left: 31%; top: 67%;" data-node="escolha"></div>
-          <div class="orb" style="left: 78%; top: 72%;" data-node="consequencia"></div>
-
-          <div class="absolute bottom-5 left-5 right-5 rounded-[1.7rem] border border-white/10 bg-void/80 p-5 backdrop-blur-xl">
-            <p class="text-xs font-black uppercase tracking-[.28em] text-neon">Nó narrativo ativo</p>
-            <h2 id="nodeTitle" class="mt-2 font-display text-4xl leading-none">Premissa viva</h2>
-            <p id="nodeDescription" class="mt-3 text-sm leading-7 text-cream/65">A pergunta dramática do jogo aparece primeiro. O visitante não lê uma sinopse: ele entende qual tensão sustenta toda a experiência.</p>
+        <div class="mt-10 grid gap-3 sm:grid-cols-3">
+          <div class="glass rounded-3xl p-5">
+            <strong class="block font-display text-3xl">14+</strong>
+            <span class="text-sm text-cream/60">game projects</span>
+          </div>
+          <div class="glass rounded-3xl p-5">
+            <strong class="block font-display text-3xl">3</strong>
+            <span class="text-sm text-cream/60">core roles</span>
+          </div>
+          <div class="glass rounded-3xl p-5">
+            <strong class="block font-display text-3xl">Blog</strong>
+            <span class="text-sm text-cream/60">process + tutorials</span>
           </div>
         </div>
       </div>
+
+      <aside class="reveal glass overflow-hidden rounded-[2rem] shadow-deep">
+        <div class="border-b border-cream/10 p-5">
+          <p class="text-xs font-black uppercase tracking-[.25em] text-cyan">Recruiter quick view</p>
+          <h2 class="mt-2 font-display text-4xl">What did Kael do?</h2>
+        </div>
+
+        <div class="grid gap-3 p-5">
+          <button class="role-tab focus-ring rounded-2xl border border-cream/10 bg-cream p-4 text-left text-wine2" data-role="writer">
+            <strong class="block">Writing & narrative design</strong>
+            <span class="text-sm opacity-75">Story systems, dialogue, characters, horror tension, lore delivery.</span>
+          </button>
+          <button class="role-tab focus-ring rounded-2xl border border-cream/10 bg-white/5 p-4 text-left text-cream/75" data-role="design">
+            <strong class="block">Game & level design</strong>
+            <span class="text-sm opacity-75">Loops, levels, player flow, puzzles, jam constraints.</span>
+          </button>
+          <button class="role-tab focus-ring rounded-2xl border border-cream/10 bg-white/5 p-4 text-left text-cream/75" data-role="art">
+            <strong class="block">2D/visual support</strong>
+            <span class="text-sm opacity-75">Art direction support, vector art, theming and visual storytelling.</span>
+          </button>
+        </div>
+
+        <div class="screenline bg-ink/55 p-5">
+          <p class="text-xs font-black uppercase tracking-[.22em] text-peach">Selected proof</p>
+          <p id="roleText" class="mt-3 text-sm leading-7 text-cream/75">
+            Screenwriter on Asleep; narrative designer/game designer on jam and personal projects; writing focused on atmosphere, character, tension and interactive delivery.
+          </p>
+        </div>
+      </aside>
     </section>
 
-    <section class="border-y border-white/10 bg-cream py-4 text-void">
+    <section class="border-y border-cream/10 bg-cream py-4 text-wine2">
       <div class="flex overflow-hidden whitespace-nowrap">
-        <div class="marquee-track flex min-w-max gap-10 pr-10 text-sm font-black uppercase tracking-[.3em]">
-          <span>Escolha</span><span>Consequência</span><span>Worldbuilding</span><span>Lore</span><span>Personagem</span><span>Ritmo</span><span>Diálogo</span><span>Missão</span><span>Pista</span><span>Silêncio</span>
-          <span>Escolha</span><span>Consequência</span><span>Worldbuilding</span><span>Lore</span><span>Personagem</span><span>Ritmo</span><span>Diálogo</span><span>Missão</span><span>Pista</span><span>Silêncio</span>
+        <div class="marquee-track flex min-w-max gap-10 pr-10 text-sm font-black uppercase tracking-[.25em]">
+          <span>Portfolio</span><span>Games</span><span>Case studies</span><span>Blog</span><span>Substack</span><span>Itch.io</span><span>Narrative design</span><span>Game writing</span>
+          <span>Portfolio</span><span>Games</span><span>Case studies</span><span>Blog</span><span>Substack</span><span>Itch.io</span><span>Narrative design</span><span>Game writing</span>
         </div>
       </div>
     </section>
   </main>
 
-  <section id="observatorio" class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-    <div class="reveal max-w-4xl">
-      <span class="text-xs font-black uppercase tracking-[.28em] text-neon">Conceito inovador</span>
-      <h2 class="mt-4 font-display text-5xl leading-[.9] tracking-[-.04em] text-cream sm:text-7xl">O portfólio como mapa de camadas narrativas.</h2>
-      <p class="mt-6 max-w-2xl text-sm leading-7 text-cream/60">Em vez de abrir um card e ler um textão, o visitante alterna camadas: trama, personagem, mundo, escolha, sistema e emoção. Cada camada revela uma competência diferente do designer.</p>
+  <section id="games" class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+    <div class="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end">
+      <div>
+        <span class="text-xs font-black uppercase tracking-[.28em] text-peach">Portfolio hub</span>
+        <h2 class="mt-3 max-w-4xl font-display text-5xl font-bold leading-[.95] tracking-[-.045em] sm:text-7xl">Clear enough for recruiters. Interesting enough to feel personal.</h2>
+      </div>
+      <p class="max-w-md text-sm leading-7 text-cream/62">
+        The evaluator can filter fast, open a project, see the contribution, and access the playable page without losing time.
+      </p>
     </div>
 
-    <div class="mt-12 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
-      <div class="reveal glass rounded-[2.2rem] p-5">
-        <div class="grid gap-3">
-          <button class="layer-btn rounded-2xl border border-neon/30 bg-neon px-5 py-4 text-left font-black text-void" data-layer="trama">01 · Trama invisível</button>
-          <button class="layer-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left font-black text-cream/70" data-layer="personagem">02 · Personagem em tensão</button>
-          <button class="layer-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left font-black text-cream/70" data-layer="mundo">03 · Mundo que conta</button>
-          <button class="layer-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left font-black text-cream/70" data-layer="sistema">04 · Sistema narrativo</button>
-          <button class="layer-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left font-black text-cream/70" data-layer="emocao">05 · Curva emocional</button>
-        </div>
-      </div>
-
-      <div class="reveal glass rounded-[2.2rem] p-6 lg:p-8">
-        <div class="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-          <div>
-            <p id="layerKicker" class="text-xs font-black uppercase tracking-[.28em] text-neon">Camada ativa</p>
-            <h3 id="layerTitle" class="mt-2 font-display text-5xl leading-none">Trama invisível</h3>
-          </div>
-          <span id="layerMetric" class="rounded-full border border-neon/20 bg-neon/10 px-4 py-2 text-xs font-black uppercase tracking-[.18em] text-neon">Mistério: 82%</span>
-        </div>
-        <p id="layerText" class="mt-7 text-lg leading-9 text-cream/70">Mostra como a história principal se organiza por trás da experiência: objetivo, revelação, virada, falsa pista e payoff. O visitante vê a arquitetura da narrativa, não apenas a sinopse.</p>
-
-        <div class="mt-8 rounded-[1.8rem] border border-white/10 bg-void/55 p-5">
-          <p class="text-xs font-black uppercase tracking-[.28em] text-cream/35">Como isso aparece no site</p>
-          <p id="layerExample" class="mt-3 text-sm leading-7 text-cream/60">Uma linha do tempo clicável mostra quando o jogador descobre cada informação e como isso altera a percepção do conflito.</p>
-        </div>
-      </div>
+    <div class="reveal mt-10 flex flex-wrap gap-3">
+      <button class="filter active rounded-full border border-cream/20 px-4 py-2 text-sm font-black" data-filter="all">All</button>
+      <button class="filter rounded-full border border-cream/20 px-4 py-2 text-sm font-black text-cream/70" data-filter="Narrative">Narrative</button>
+      <button class="filter rounded-full border border-cream/20 px-4 py-2 text-sm font-black text-cream/70" data-filter="Game Design">Game Design</button>
+      <button class="filter rounded-full border border-cream/20 px-4 py-2 text-sm font-black text-cream/70" data-filter="Level Design">Level Design</button>
+      <button class="filter rounded-full border border-cream/20 px-4 py-2 text-sm font-black text-cream/70" data-filter="Art">Art</button>
+      <button class="filter rounded-full border border-cream/20 px-4 py-2 text-sm font-black text-cream/70" data-filter="Playable">Playable in browser</button>
     </div>
-  </section>
 
-  <section id="projetos" class="bg-cream px-5 py-24 text-void lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end">
-        <div>
-          <span class="text-xs font-black uppercase tracking-[.28em] text-violet">Estudos de caso demonstrativos</span>
-          <h2 class="mt-4 max-w-4xl font-display text-5xl leading-[.9] tracking-[-.04em] sm:text-7xl">Projetos apresentados como dossiês vivos.</h2>
+    <div class="mt-10 grid gap-7 lg:grid-cols-[1fr_390px]">
+      <div id="gamesGrid" class="reveal grid gap-5 sm:grid-cols-2 xl:grid-cols-3"></div>
+
+      <aside class="reveal glass sticky top-24 h-fit overflow-hidden rounded-[2rem]">
+        <div class="relative h-56 overflow-hidden bg-wine2">
+          <img id="detailImage" src="" alt="" class="h-full w-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-wine2 to-transparent"></div>
+          <span id="detailTag" class="absolute left-5 top-5 rounded-full bg-peach px-3 py-1 text-xs font-black uppercase tracking-[.16em] text-wine2"></span>
         </div>
-        <p class="max-w-md text-sm leading-7 text-void/60">Usei jogos e linguagens conhecidas como inspiração visual/conceitual, mas os projetos abaixo são fictícios para demonstrar formato, interação e posicionamento.</p>
-      </div>
+        <div class="p-6">
+          <h3 id="detailTitle" class="font-display text-4xl leading-none"></h3>
+          <p id="detailGenre" class="mt-2 text-sm font-bold text-peach"></p>
+          <p id="detailContribution" class="mt-5 text-sm leading-7 text-cream/72"></p>
 
-      <div class="mt-12 grid gap-6 lg:grid-cols-3">
-        <article class="artifact-card rounded-[2rem] border border-void/10 bg-void p-5 text-cream shadow-deep">
-          <div class="relative h-72 overflow-hidden rounded-[1.5rem] bg-night">
-            <div class="h-full w-full bg-[radial-gradient(circle_at_30%_20%,rgba(156,246,246,.45),transparent_25%),radial-gradient(circle_at_70%_70%,rgba(143,107,255,.45),transparent_30%),linear-gradient(135deg,#101522,#080A12)]"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent"></div>
-            <span class="absolute left-4 top-4 rounded-full bg-neon px-3 py-1 text-xs font-black uppercase tracking-[.18em] text-void">RPG</span>
+          <div class="mt-6 rounded-2xl border border-cream/10 bg-white/5 p-4">
+            <p class="text-xs font-black uppercase tracking-[.22em] text-cream/35">Narrative angle</p>
+            <p id="detailAngle" class="mt-2 text-sm leading-6 text-cream/65"></p>
           </div>
-          <h3 class="mt-6 font-display text-4xl leading-none">Cidade de Vidro</h3>
-          <p class="mt-4 text-sm leading-7 text-cream/60">Um RPG investigativo onde cada mentira dita pelo jogador altera a arquitetura da cidade.</p>
-          <button class="open-dossier mt-6 rounded-full bg-cream px-5 py-3 text-sm font-black text-void" data-dossier="vidro">Abrir dossiê</button>
-        </article>
 
-        <article class="artifact-card rounded-[2rem] border border-void/10 bg-void p-5 text-cream shadow-deep">
-          <div class="relative h-72 overflow-hidden rounded-[1.5rem] bg-night">
-            <div class="h-full w-full bg-[radial-gradient(circle_at_25%_25%,rgba(255,92,138,.45),transparent_24%),radial-gradient(circle_at_75%_75%,rgba(255,200,87,.33),transparent_28%),linear-gradient(135deg,#171020,#080A12)]"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent"></div>
-            <span class="absolute left-4 top-4 rounded-full bg-rose px-3 py-1 text-xs font-black uppercase tracking-[.18em] text-void">Drama</span>
-          </div>
-          <h3 class="mt-6 font-display text-4xl leading-none">Depois do Sinal</h3>
-          <p class="mt-4 text-sm leading-7 text-cream/60">Uma experiência curta onde mensagens de rádio revelam culpa, luto e versões incompatíveis do passado.</p>
-          <button class="open-dossier mt-6 rounded-full bg-cream px-5 py-3 text-sm font-black text-void" data-dossier="sinal">Abrir dossiê</button>
-        </article>
-
-        <article class="artifact-card rounded-[2rem] border border-void/10 bg-void p-5 text-cream shadow-deep">
-          <div class="relative h-72 overflow-hidden rounded-[1.5rem] bg-night">
-            <div class="h-full w-full bg-[radial-gradient(circle_at_20%_70%,rgba(255,200,87,.38),transparent_24%),radial-gradient(circle_at_75%_30%,rgba(156,246,246,.34),transparent_30%),linear-gradient(135deg,#101522,#080A12)]"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent"></div>
-            <span class="absolute left-4 top-4 rounded-full bg-amber px-3 py-1 text-xs font-black uppercase tracking-[.18em] text-void">Sci-fi</span>
-          </div>
-          <h3 class="mt-6 font-display text-4xl leading-none">Órbita dos Mortos</h3>
-          <p class="mt-4 text-sm leading-7 text-cream/60">Uma estação espacial onde o lore está nos objetos, nas falhas de áudio e nas rotinas repetidas da IA.</p>
-          <button class="open-dossier mt-6 rounded-full bg-cream px-5 py-3 text-sm font-black text-void" data-dossier="orbita">Abrir dossiê</button>
-        </article>
-      </div>
+          <a id="detailLink" target="_blank" rel="noopener" class="mt-6 inline-flex w-full justify-center rounded-full bg-cream px-5 py-4 text-sm font-black text-wine2 transition hover:-translate-y-1">Open game page</a>
+        </div>
+      </aside>
     </div>
   </section>
 
-  <section id="laboratorio" class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-    <div class="grid gap-8 lg:grid-cols-[.85fr_1.15fr] lg:items-start">
-      <div class="reveal lg:sticky lg:top-28">
-        <span class="text-xs font-black uppercase tracking-[.28em] text-amber">Laboratório de escolhas</span>
-        <h2 class="mt-4 font-display text-5xl leading-[.9] tracking-[-.04em] sm:text-7xl">Amostra interativa de consequência narrativa.</h2>
-        <p class="mt-6 text-sm leading-7 text-cream/60">O visitante escolhe uma abordagem e o site muda tom, leitura da cena e métrica narrativa. Isso comunica que o profissional entende ramificação, consequência e experiência do jogador.</p>
-      </div>
-
-      <div class="reveal glass rounded-[2.4rem] p-5 lg:p-7">
-        <div class="rounded-[1.9rem] border border-white/10 bg-void/70 p-6 scanline">
-          <div class="flex flex-col gap-5 border-b border-white/10 pb-6 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p class="text-xs font-black uppercase tracking-[.28em] text-neon">Cena jogável</p>
-              <h3 class="mt-2 font-display text-5xl leading-none">O Arquivo das Vozes</h3>
-            </div>
-            <div class="grid grid-cols-3 gap-2 text-center text-xs font-black uppercase tracking-[.14em]">
-              <span id="empathyScore" class="rounded-2xl bg-neon/10 px-3 py-3 text-neon">Empatia 45</span>
-              <span id="truthScore" class="rounded-2xl bg-amber/10 px-3 py-3 text-amber">Verdade 50</span>
-              <span id="riskScore" class="rounded-2xl bg-rose/10 px-3 py-3 text-rose">Risco 20</span>
-            </div>
-          </div>
-
-          <p id="storyText" class="mt-7 text-xl leading-10 text-cream/75">A IA da estação reproduz a voz da pessoa que você tentou esquecer. Ela pergunta: “Você quer o arquivo original ou a versão que te deixa dormir?”</p>
-
-          <div class="mt-8 grid gap-3">
-            <button class="choice-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left text-sm font-bold text-cream/75 transition hover:border-neon/50 hover:bg-neon/10" data-choice="truth">Pedir o arquivo original, mesmo que incrimine o protagonista.</button>
-            <button class="choice-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left text-sm font-bold text-cream/75 transition hover:border-rose/50 hover:bg-rose/10" data-choice="lie">Aceitar a versão confortável e apagar a fonte.</button>
-            <button class="choice-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left text-sm font-bold text-cream/75 transition hover:border-amber/50 hover:bg-amber/10" data-choice="silence">Não responder. Ouvir o ruído entre as duas gravações.</button>
-          </div>
-
-          <div class="mt-8 grid gap-4 md:grid-cols-3">
-            <div class="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
-              <p class="text-xs font-black uppercase tracking-[.24em] text-cream/35">Leitura</p>
-              <p id="readingOutput" class="mt-3 text-sm leading-6 text-cream/65">A cena ainda está neutra. A próxima escolha define como o jogador interpreta a culpa.</p>
-            </div>
-            <div class="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
-              <p class="text-xs font-black uppercase tracking-[.24em] text-cream/35">Consequência</p>
-              <p id="consequenceOutput" class="mt-3 text-sm leading-6 text-cream/65">Nenhuma porta narrativa foi aberta ainda.</p>
-            </div>
-            <div class="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
-              <p class="text-xs font-black uppercase tracking-[.24em] text-cream/35">Design</p>
-              <p id="designOutput" class="mt-3 text-sm leading-6 text-cream/65">O objetivo é demonstrar tom, agência e payoff com poucas linhas.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-void px-5 py-24 lg:px-8">
+  <section id="case-study" class="bg-cream px-5 py-24 text-wine2 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <div class="reveal max-w-4xl">
-        <span class="text-xs font-black uppercase tracking-[.28em] text-rose">Timeline emocional</span>
-        <h2 class="mt-4 font-display text-5xl leading-[.9] tracking-[-.04em] sm:text-7xl">O visitante vê a curva da experiência, não só o resumo do roteiro.</h2>
+        <span class="text-xs font-black uppercase tracking-[.28em] text-wine">Featured case study</span>
+        <h2 class="mt-3 font-display text-5xl font-bold leading-[.95] tracking-[-.045em] sm:text-7xl">One project gets the deeper breakdown recruiters need.</h2>
+        <p class="mt-6 max-w-2xl text-sm leading-7 text-wine2/65">
+          This keeps the site objective: most projects are quick cards, but one or two can become strong case studies with process, decisions and outcomes.
+        </p>
       </div>
 
-      <div class="reveal mt-12 rounded-[2.2rem] border border-white/10 bg-white/[.04] p-5 backdrop-blur-xl">
-        <div class="grid gap-3 md:grid-cols-5">
-          <button class="timeline-dot active rounded-2xl border border-white/10 px-4 py-5 text-sm font-black" data-chapter="0">Ato 1<br><span class="text-xs opacity-60">Curiosidade</span></button>
-          <button class="timeline-dot rounded-2xl border border-white/10 px-4 py-5 text-sm font-black" data-chapter="1">Ato 2<br><span class="text-xs opacity-60">Desconfiança</span></button>
-          <button class="timeline-dot rounded-2xl border border-white/10 px-4 py-5 text-sm font-black" data-chapter="2">Virada<br><span class="text-xs opacity-60">Culpa</span></button>
-          <button class="timeline-dot rounded-2xl border border-white/10 px-4 py-5 text-sm font-black" data-chapter="3">Clímax<br><span class="text-xs opacity-60">Escolha</span></button>
-          <button class="timeline-dot rounded-2xl border border-white/10 px-4 py-5 text-sm font-black" data-chapter="4">Eco<br><span class="text-xs opacity-60">Consequência</span></button>
+      <div class="mt-12 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+        <div class="reveal rounded-[2rem] bg-wine2 p-5 text-cream shadow-deep">
+          <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2190700/header.jpg" alt="Asleep" class="h-64 w-full rounded-[1.5rem] object-cover">
+          <div class="p-3">
+            <h3 class="mt-4 font-display text-4xl">Asleep</h3>
+            <p class="mt-3 text-sm leading-7 text-cream/65">
+              A horror game set in 1990s Northeast Brazil, with emphasis on atmosphere, mystery, protagonist perception and environmental storytelling.
+            </p>
+          </div>
         </div>
 
-        <div class="mt-6 rounded-[1.8rem] bg-cream p-7 text-void">
-          <div class="chapter-panel active">
-            <h3 class="font-display text-4xl">O jogador entra por curiosidade.</h3>
-            <p class="mt-3 text-sm leading-7 text-void/65">Primeiro contato com símbolos, regras e mistério. A narrativa promete algo sem explicar completamente.</p>
-          </div>
-          <div class="chapter-panel">
-            <h3 class="font-display text-4xl">A confiança começa a falhar.</h3>
-            <p class="mt-3 text-sm leading-7 text-void/65">NPCs, documentos e ambientes entram em contradição. O jogador passa a investigar o próprio ponto de vista.</p>
-          </div>
-          <div class="chapter-panel">
-            <h3 class="font-display text-4xl">A revelação muda o passado.</h3>
-            <p class="mt-3 text-sm leading-7 text-void/65">A virada não adiciona informação apenas; ela reorganiza tudo que o jogador achava que entendeu.</p>
-          </div>
-          <div class="chapter-panel">
-            <h3 class="font-display text-4xl">Escolher custa algo.</h3>
-            <p class="mt-3 text-sm leading-7 text-void/65">A escolha final não é “bom ou mau”. É uma decisão entre perdas narrativamente coerentes.</p>
-          </div>
-          <div class="chapter-panel">
-            <h3 class="font-display text-4xl">A consequência continua depois do fim.</h3>
-            <p class="mt-3 text-sm leading-7 text-void/65">O final mostra o impacto da jornada no mundo, nos personagens e na interpretação do jogador.</p>
+        <div class="reveal grid gap-4">
+          <button class="case-tab rounded-2xl bg-wine2 px-5 py-4 text-left font-black text-cream" data-case="challenge">01 · Narrative challenge</button>
+          <button class="case-tab rounded-2xl border border-wine2/10 bg-white px-5 py-4 text-left font-black text-wine2/70" data-case="tools">02 · Tools used</button>
+          <button class="case-tab rounded-2xl border border-wine2/10 bg-white px-5 py-4 text-left font-black text-wine2/70" data-case="result">03 · What this proves</button>
+
+          <div class="rounded-[2rem] bg-white p-6 shadow-deep">
+            <p class="text-xs font-black uppercase tracking-[.25em] text-wine2/35">Breakdown</p>
+            <h4 id="caseTitle" class="mt-2 font-display text-4xl">Narrative challenge</h4>
+            <p id="caseText" class="mt-4 text-sm leading-7 text-wine2/68">
+              How to make the player feel the protagonist's troubled perception without overexplaining it? The portfolio can show this through short annotated examples instead of long generic descriptions.
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="contato" class="bg-cream px-5 py-24 text-void lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_.75fr]">
+  <section id="blog" class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+    <div class="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end">
+      <div>
+        <span class="text-xs font-black uppercase tracking-[.28em] text-cyan">Substack feed</span>
+        <h2 class="mt-3 max-w-4xl font-display text-5xl font-bold leading-[.95] tracking-[-.045em] sm:text-7xl">Latest essays, tutorials and dev notes — pulled from Substack.</h2>
+        <p class="mt-5 max-w-2xl text-sm leading-7 text-cream/62">
+          This keeps the portfolio objective for recruiters while showing the thinking behind Kael's narrative design practice.
+        </p>
+      </div>
+      <a href="https://kaelangeli.substack.com/" target="_blank" rel="noopener" class="rounded-full bg-cream px-6 py-4 text-sm font-black text-wine2 transition hover:-translate-y-1">Open Substack</a>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-[1fr_360px]">
+      <div class="reveal glass rounded-[2rem] p-5 lg:p-6">
+        <div class="mb-6 flex flex-col justify-between gap-4 border-b border-cream/10 pb-5 md:flex-row md:items-center">
+          <div>
+            <p class="text-xs font-black uppercase tracking-[.25em] text-cyan">Prosa & Pixel</p>
+            <h3 class="mt-2 font-display text-4xl leading-none">Recent publications</h3>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <button class="blog-filter active rounded-full border border-cream/20 px-4 py-2 text-xs font-black uppercase tracking-[.14em]" data-blog-filter="all">All</button>
+            <button class="blog-filter rounded-full border border-cream/20 px-4 py-2 text-xs font-black uppercase tracking-[.14em] text-cream/70" data-blog-filter="narrativa">Narrative</button>
+            <button class="blog-filter rounded-full border border-cream/20 px-4 py-2 text-xs font-black uppercase tracking-[.14em] text-cream/70" data-blog-filter="terror">Horror</button>
+          </div>
+        </div>
+
+        <div id="substackStatus" class="rounded-2xl border border-cream/10 bg-white/5 p-5 text-sm leading-7 text-cream/65">
+          Loading latest Substack publications...
+        </div>
+
+        <div id="substackPosts" class="mt-6 grid gap-5 md:grid-cols-2"></div>
+
+        <div id="substackPager" class="mt-6 hidden items-center justify-between gap-4 rounded-2xl border border-cream/10 bg-white/5 p-4">
+          <button id="prevPosts" class="focus-ring rounded-full border border-cream/20 px-4 py-2 text-sm font-black text-cream transition hover:border-peach hover:text-peach" type="button">
+            ← Previous
+          </button>
+
+          <div class="text-center">
+            <p id="pageIndicator" class="text-sm font-black text-cream">Page 1 / 1</p>
+            <p id="postsCounter" class="mt-1 text-xs text-cream/50">Showing loaded publications</p>
+          </div>
+
+          <button id="nextPosts" class="focus-ring rounded-full border border-cream/20 px-4 py-2 text-sm font-black text-cream transition hover:border-peach hover:text-peach" type="button">
+            Next →
+          </button>
+        </div>
+      </div>
+
+      <aside class="reveal rounded-[2rem] bg-cream p-6 text-wine2 shadow-deep">
+        <p class="text-xs font-black uppercase tracking-[.25em] text-wine2/45">Why this section matters</p>
+        <h3 class="mt-3 font-display text-4xl leading-none">Articles become proof of craft.</h3>
+        <p class="mt-5 text-sm leading-7 text-wine2/65">
+          The games show what Kael made. The Substack shows how he thinks: process, tutorials, analysis, references and personal journey.
+        </p>
+
+        <div class="mt-7 grid gap-3">
+          <span class="rounded-2xl bg-wine2 px-4 py-3 text-sm font-black text-cream">Narrative Design</span>
+          <span class="rounded-2xl bg-wine2/10 px-4 py-3 text-sm font-black">Game Writing</span>
+          <span class="rounded-2xl bg-wine2/10 px-4 py-3 text-sm font-black">Horror Studies</span>
+          <span class="rounded-2xl bg-wine2/10 px-4 py-3 text-sm font-black">Game Jam Diaries</span>
+          <span class="rounded-2xl bg-wine2/10 px-4 py-3 text-sm font-black">Tutorials</span>
+        </div>
+
+        <a href="https://kaelangeli.substack.com/" target="_blank" rel="noopener" class="mt-7 inline-flex w-full justify-center rounded-full bg-wine2 px-5 py-4 text-sm font-black text-cream transition hover:-translate-y-1">Visit full blog</a>
+      </aside>
+    </div>
+  </section>
+
+  <section id="about" class="bg-wine2/60 px-5 py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.85fr_1.15fr]">
       <div class="reveal">
-        <span class="text-xs font-black uppercase tracking-[.28em] text-violet">Fechamento</span>
-        <h2 class="mt-4 max-w-4xl font-display text-5xl leading-[.9] tracking-[-.04em] sm:text-7xl">Isso vende a especialidade dele de um jeito memorável.</h2>
-        <p class="mt-6 max-w-2xl text-sm leading-7 text-void/65">A proposta é clara: um portfólio que prova domínio narrativo por experiência, não por promessa. Ele pode mostrar jogos, mas principalmente mostrar como pensa narrativa, escolhas, ritmo, personagens, lore e sistemas.</p>
+        <span class="text-xs font-black uppercase tracking-[.28em] text-peach">About + CV</span>
+        <h2 class="mt-3 font-display text-5xl font-bold leading-[.95] tracking-[-.045em] sm:text-7xl">Short bio, downloadable CV, and direct proof links.</h2>
       </div>
 
-      <form class="reveal rounded-[2rem] border border-void/10 bg-white p-6 shadow-deep" onsubmit="event.preventDefault(); alert('Mensagem enviada! Esta é uma prova de conceito.');">
-        <h3 class="font-display text-4xl">Contato</h3>
-        <div class="mt-6 grid gap-4">
-          <input class="rounded-2xl border border-void/10 bg-cream px-4 py-4 text-sm outline-none focus:border-violet" placeholder="Nome" required>
-          <input type="email" class="rounded-2xl border border-void/10 bg-cream px-4 py-4 text-sm outline-none focus:border-violet" placeholder="E-mail" required>
-          <textarea class="min-h-32 rounded-2xl border border-void/10 bg-cream px-4 py-4 text-sm outline-none focus:border-violet" placeholder="Conte sobre o projeto"></textarea>
-          <button class="rounded-full bg-void px-6 py-4 text-sm font-black text-cream transition hover:bg-violet">Enviar</button>
+      <div class="reveal glass rounded-[2rem] p-6">
+        <p class="text-lg leading-8 text-cream/78">
+          David Stéfano, also signing as Kael Angeli, is a Brazilian game writer and narrative designer focused on game writing, comics, character creation, horror, environmental storytelling and interactive narrative.
+        </p>
+        <div class="mt-7 grid gap-4 sm:grid-cols-2">
+          <a href="https://kaelangeli.itch.io" target="_blank" rel="noopener" class="rounded-2xl bg-cream px-5 py-4 text-sm font-black text-wine2">Itch.io portfolio</a>
+          <a href="https://kaelangeli.substack.com" target="_blank" rel="noopener" class="rounded-2xl bg-peach px-5 py-4 text-sm font-black text-wine2">Substack blog</a>
+          <a href="https://www.linkedin.com/in/david-sté..." target="_blank" rel="noopener" class="rounded-2xl border border-cream/15 px-5 py-4 text-sm font-black text-cream">LinkedIn</a>
+          <a href="#" class="rounded-2xl border border-cream/15 px-5 py-4 text-sm font-black text-cream">Download CV</a>
         </div>
-      </form>
+      </div>
     </div>
   </section>
 
-  <footer class="border-t border-white/10 bg-void px-5 py-8 text-cream/45 lg:px-8">
-    <div class="mx-auto flex max-w-7xl flex-col justify-between gap-4 text-sm md:flex-row">
-      <p>© 2026 · Narrative Observatory · Prova de conceito</p>
-      <p>Portfolio como experiência interativa.</p>
+  <section id="contact" class="bg-cream px-5 py-20 text-wine2 lg:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col justify-between gap-8 md:flex-row md:items-center">
+      <div>
+        <span class="text-xs font-black uppercase tracking-[.25em] text-wine2/45">Contact</span>
+        <h2 class="mt-2 font-display text-5xl font-bold tracking-[-.04em]">Ready to talk?</h2>
+        <p class="mt-3 text-sm text-wine2/60">Keep it simple: email, LinkedIn, Itch and Substack visible at all times.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://kaelangeli.itch.io" target="_blank" rel="noopener" class="rounded-full bg-wine2 px-5 py-3 text-sm font-black text-cream">Itch.io</a>
+        <a href="https://kaelangeli.substack.com" target="_blank" rel="noopener" class="rounded-full bg-wine2 px-5 py-3 text-sm font-black text-cream">Substack</a>
+        <a href="https://twitter.com/KaelAngeli" target="_blank" rel="noopener" class="rounded-full bg-wine2 px-5 py-3 text-sm font-black text-cream">X/Twitter</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-cream/10 bg-wine2 px-5 py-8 text-sm text-cream/50 lg:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col justify-between gap-4 md:flex-row">
+      <p>Prototype concept · Kael Angeli portfolio</p>
+      <p>Static first. Supabase optional later.</p>
     </div>
   </footer>
 
-  <div id="dossierModal" class="fixed inset-0 z-[70] hidden items-center justify-center bg-void/80 p-4 backdrop-blur-xl">
-    <div class="max-h-[92vh] w-full max-w-5xl overflow-auto rounded-[2.3rem] border border-white/10 bg-night text-cream shadow-deep">
-      <div class="sticky top-0 z-10 flex items-center justify-between border-b border-white/10 bg-night/90 p-5 backdrop-blur-xl">
-        <div>
-          <p class="text-xs font-black uppercase tracking-[.28em] text-neon">Dossiê narrativo</p>
-          <h3 id="dossierTitle" class="font-display text-5xl leading-none">Projeto</h3>
-        </div>
-        <button id="closeDossier" class="grid h-12 w-12 place-items-center rounded-full bg-cream text-void">✕</button>
-      </div>
-
-      <div class="grid gap-5 p-5 lg:grid-cols-2 lg:p-8">
-        <div class="rounded-[1.7rem] border border-white/10 bg-white/5 p-5">
-          <p class="text-xs font-black uppercase tracking-[.25em] text-cream/35">Problema</p>
-          <p id="dossierProblem" class="mt-3 text-sm leading-7 text-cream/65"></p>
-        </div>
-        <div class="rounded-[1.7rem] border border-white/10 bg-white/5 p-5">
-          <p class="text-xs font-black uppercase tracking-[.25em] text-cream/35">Sistema narrativo</p>
-          <p id="dossierSystem" class="mt-3 text-sm leading-7 text-cream/65"></p>
-        </div>
-        <div class="rounded-[1.7rem] border border-neon/20 bg-neon/10 p-5 lg:col-span-2">
-          <p class="text-xs font-black uppercase tracking-[.25em] text-neon">Amostra de escrita</p>
-          <p id="dossierSample" class="mt-3 font-display text-3xl leading-tight text-cream"></p>
-        </div>
-        <div class="rounded-[1.7rem] border border-white/10 bg-white/5 p-5 lg:col-span-2">
-          <p class="text-xs font-black uppercase tracking-[.25em] text-cream/35">O que isso prova no portfólio</p>
-          <p id="dossierProof" class="mt-3 text-sm leading-7 text-cream/65"></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
-    const menuButton = document.getElementById('menuButton');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuButton?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    const games = [
+      {
+        title: "Pruutants Delivery",
+        genre: "Shooter · Action · Multiplayer",
+        tags: ["Narrative", "Game Design"],
+        img: "https://img.itch.zone/aW1nLzEyMTYzNzA0LnBuZw%3D%3D/original/%2BmNaQk.png",
+        url: "https://jeyer.itch.io/pruutants-delivery",
+        role: "Narrative Designer and Game Designer.",
+        angle: "Comedic premise, world setup, multiplayer loop and delivery conflict as a game fantasy."
+      },
+      {
+        title: "The Fall of Calidi",
+        genre: "Adventure · Fantasy",
+        tags: ["Narrative"],
+        img: "https://img.itch.zone/aW1nLzgyNjU3MjYucG5n/original/k5J1gd.png",
+        url: "https://narcisorosario.itch.io/the-fall-of-calidi",
+        role: "Writer on a personal study project built remotely with a local group.",
+        angle: "Fantasy worldbuilding, progression context and narrative setup for an action-adventure experience."
+      },
+      {
+        title: "Never Alone",
+        genre: "Adventure · Choices",
+        tags: ["Narrative"],
+        img: "https://img.itch.zone/aW1nLzYyODI0NjEucG5n/315x250%23c/6xvYaZ.png",
+        url: "https://narcisorosario.itch.io/never-alone",
+        role: "Storytelling techniques for a multiple-choice narrative about two sisters crossing a cursed forest.",
+        angle: "Choice-based tension: player decisions put the sisters in safer or more complicated situations."
+      },
+      {
+        title: "Cursed Pirate",
+        genre: "2D Platform Puzzle",
+        tags: ["Game Design", "Level Design"],
+        img: "https://img.itch.zone/aW1nLzEyMTYyMjIxLnBuZw%3D%3D/315x250%23c/BJVPbw.png",
+        url: "https://isaacaugusto.itch.io/cursed-pirate",
+        role: "Level design and game design support.",
+        angle: "Puzzle movement constraint translated into a cursed pirate fantasy."
+      },
+      {
+        title: "Super Rangers in Bullet Space",
+        genre: "Action · Bullet hell",
+        tags: ["Game Design", "Playable"],
+        img: "https://img.itch.zone/aW1nLzg3NTU4NTkucG5n/315x250%23c/Hbefvt.png",
+        url: "https://patrocinioluisf.itch.io/super-rangers",
+        role: "Game design support on a Bullet Hell Jam project.",
+        angle: "A twist on bullet hell where dodging becomes the main identity of the experience."
+      },
+      {
+        title: "Cristalia Time",
+        genre: "Adventure",
+        tags: ["Narrative"],
+        img: "https://img.itch.zone/aW1nLzg1OTE3MDAucG5n/315x250%23c/3cIc7N.png",
+        url: "https://patrocinioluisf.itch.io/cristalia-time",
+        role: "Portfolio project entry.",
+        angle: "Adventure framing and mood-first presentation."
+      },
+      {
+        title: "Dalf's Quest",
+        genre: "Puzzle",
+        tags: ["Game Design"],
+        img: "https://img.itch.zone/aW1nLzE3NDI0NDM0LnBuZw%3D%3D/315x250%23c/ffvx5h.png",
+        url: "https://ruhan.itch.io/dalfs-quest",
+        role: "Portfolio project entry.",
+        angle: "Puzzle-first communication with a clear playable hook."
+      },
+      {
+        title: "Little Liro Legends",
+        genre: "Action",
+        tags: ["Game Design", "Playable"],
+        img: "https://img.itch.zone/aW1nLzEzMjY0NzQxLnBuZw%3D%3D/315x250%23c/VphhSw.png",
+        url: "https://patrocinioluisf.itch.io/little-liro-legends",
+        role: "Portfolio project entry.",
+        angle: "Action fantasy framing with a strong visual identity."
+      },
+      {
+        title: "Varginha Mission",
+        genre: "Platformer",
+        tags: ["Narrative", "Art"],
+        img: "https://img.itch.zone/aW1nLzQ0MDExOTIucG5n/315x250%23c/k2Ef2q.png",
+        url: "https://kaelangeli.itch.io/varginha-mission",
+        role: "Narrative theming and most vector art.",
+        angle: "Brazilian urban legend inspiration turned into a clear platformer premise."
+      },
+      {
+        title: "Super Drill Out",
+        genre: "Action",
+        tags: ["Art", "Game Design"],
+        img: "https://img.itch.zone/aW1nLzY4MDcwMjAucG5n/315x250%23c/PSimFS.png",
+        url: "https://ruhan.itch.io/super-drill-out",
+        role: "Main artist, 2D art and some game design.",
+        angle: "Fast game-jam production with bold readable arcade identity."
+      },
+      {
+        title: "Super Ninjas",
+        genre: "Action",
+        tags: ["Playable", "Game Design"],
+        img: "https://img.itch.zone/aW1nLzE4ODM1ODc0LnBuZw%3D%3D/315x250%23c/HBSznE.png",
+        url: "https://patrocinioluisf.itch.io/super-ninjas",
+        role: "Portfolio project entry.",
+        angle: "Compact action presentation with clear identity."
+      },
+      {
+        title: "Super Rangers at Panic Station!",
+        genre: "Puzzle",
+        tags: ["Game Design", "Level Design", "Playable"],
+        img: "https://img.itch.zone/aW1nLzEwNDY3NzkxLnBuZw%3D%3D/315x250%23c/d2VEJN.png",
+        url: "https://patrocinioluisf.itch.io/super-rangers-at-panic-station",
+        role: "Level construction and game design support.",
+        angle: "Space station safety as a puzzle/pressure fantasy."
+      },
+      {
+        title: "Turtley Loops",
+        genre: "Action",
+        tags: ["Playable"],
+        img: "https://img.itch.zone/aW1nLzI0NDQ0NDM3LnBuZw%3D%3D/315x250%23c/hwGl9S.png",
+        url: "https://patrocinioluisf.itch.io/turtley-loops",
+        role: "Portfolio project entry.",
+        angle: "Small, readable arcade concept with instant hook."
+      },
+      {
+        title: "Holenauts",
+        genre: "Platformer",
+        tags: ["Game Design"],
+        img: "https://img.itch.zone/aW1nLzEwNDczMDE5LmpwZw%3D%3D/315x250%23c/hSkVET.jpg",
+        url: "https://argentumpluviam.itch.io/holenauts",
+        role: "Portfolio project entry.",
+        angle: "Race-against-time platformer premise with clear objective."
+      }
+    ];
+
+    const grid = document.getElementById('gamesGrid');
+    const detailImage = document.getElementById('detailImage');
+    const detailTag = document.getElementById('detailTag');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailGenre = document.getElementById('detailGenre');
+    const detailContribution = document.getElementById('detailContribution');
+    const detailAngle = document.getElementById('detailAngle');
+    const detailLink = document.getElementById('detailLink');
+
+    function renderGames(filter = 'all') {
+      grid.innerHTML = '';
+      const filtered = filter === 'all' ? games : games.filter(game => game.tags.includes(filter));
+      filtered.forEach((game, index) => {
+        const card = document.createElement('button');
+        card.className = 'game-card focus-ring rounded-[1.7rem] border border-cream/10 bg-white/5 p-3 text-left';
+        card.innerHTML = `
+          <img src="${game.img}" alt="${game.title}" class="h-44 w-full rounded-[1.25rem] object-cover pixel">
+          <div class="p-3">
+            <h3 class="font-display text-2xl leading-tight">${game.title}</h3>
+            <p class="mt-1 text-sm text-peach">${game.genre}</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              ${game.tags.map(tag => `<span class="rounded-full bg-cream/10 px-2.5 py-1 text-[11px] font-black uppercase tracking-[.12em] text-cream/70">${tag}</span>`).join('')}
+            </div>
+          </div>
+        `;
+        card.addEventListener('click', () => selectGame(game, card));
+        grid.appendChild(card);
+        if (index === 0) {
+          setTimeout(() => selectGame(game, card), 0);
+        }
+      });
+    }
+
+    function selectGame(game, card) {
+      document.querySelectorAll('.game-card').forEach(item => item.classList.remove('active'));
+      card.classList.add('active');
+      detailImage.src = game.img;
+      detailImage.alt = game.title;
+      detailTag.textContent = game.tags[0] || 'Project';
+      detailTitle.textContent = game.title;
+      detailGenre.textContent = game.genre;
+      detailContribution.textContent = game.role;
+      detailAngle.textContent = game.angle;
+      detailLink.href = game.url;
+    }
+
+    document.querySelectorAll('.filter').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.filter').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        renderGames(button.dataset.filter);
+      });
+    });
+
+    renderGames();
+
+    const roleText = {
+      writer: 'Screenwriter on Asleep; narrative designer/game designer on jam and personal projects; writing focused on atmosphere, character, tension and interactive delivery.',
+      design: 'Game and level design contributions across jam projects, especially puzzle/action loops, player objectives, constraints and readable progression.',
+      art: 'Visual support in selected projects, including 2D/vector art and narrative theming that connects world, mechanics and mood.'
+    };
+
+    document.querySelectorAll('.role-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.role-tab').forEach(btn => {
+          btn.className = 'role-tab focus-ring rounded-2xl border border-cream/10 bg-white/5 p-4 text-left text-cream/75';
+        });
+        tab.className = 'role-tab focus-ring rounded-2xl border border-cream/10 bg-cream p-4 text-left text-wine2';
+        document.getElementById('roleText').textContent = roleText[tab.dataset.role];
+      });
+    });
+
+    const cases = {
+      challenge: {
+        title: 'Narrative challenge',
+        text: 'How to make the player feel the protagonist’s troubled perception without overexplaining it? The portfolio can show this through short annotated examples instead of long generic descriptions.'
+      },
+      tools: {
+        title: 'Tools used',
+        text: 'Sketchbook entries, item descriptions, spot views, documents, environmental storytelling and visual systems can be shown as portfolio artifacts.'
+      },
+      result: {
+        title: 'What this proves',
+        text: 'The case study proves applied craft: atmosphere, pacing, protagonist perception, environmental storytelling and narrative delivery inside gameplay.'
+      }
+    };
+
+    document.querySelectorAll('.case-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.case-tab').forEach(btn => {
+          btn.className = 'case-tab rounded-2xl border border-wine2/10 bg-white px-5 py-4 text-left font-black text-wine2/70';
+        });
+        tab.className = 'case-tab rounded-2xl bg-wine2 px-5 py-4 text-left font-black text-cream';
+        document.getElementById('caseTitle').textContent = cases[tab.dataset.case].title;
+        document.getElementById('caseText').textContent = cases[tab.dataset.case].text;
+      });
+    });
 
     const revealObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -528,205 +666,216 @@
     }, { threshold: .12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    const canvas = document.getElementById('constellationCanvas');
-    const ctx = canvas.getContext('2d');
+    const substackFeedUrl = 'https://kaelangeli.substack.com/feed';
 
-    function resizeCanvas() {
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * devicePixelRatio;
-      canvas.height = rect.height * devicePixelRatio;
-      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
-      drawConstellation();
+    /*
+      Optional: if the client creates an rss2json API key later, paste it here.
+      With an API key, rss2json allows the `count` parameter, so the site can request more posts.
+      Without an API key, rss2json usually returns the default amount of items.
+    */
+    const RSS2JSON_API_KEY = '';
+    const SUBSTACK_REQUEST_COUNT = 100;
+
+    function buildSubstackApiUrl() {
+      const params = new URLSearchParams({
+        rss_url: substackFeedUrl
+      });
+
+      if (RSS2JSON_API_KEY) {
+        params.set('api_key', RSS2JSON_API_KEY);
+        params.set('count', String(SUBSTACK_REQUEST_COUNT));
+      }
+
+      return `https://api.rss2json.com/v1/api.json?${params.toString()}`;
     }
 
-    function drawConstellation() {
-      const rect = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, rect.width, rect.height);
-      const points = [
-        [rect.width * .49, rect.height * .13],
-        [rect.width * .19, rect.height * .35],
-        [rect.width * .69, rect.height * .32],
-        [rect.width * .32, rect.height * .69],
-        [rect.width * .79, rect.height * .74]
-      ];
-      ctx.strokeStyle = 'rgba(156,246,246,.22)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(points[0][0], points[0][1]);
-      ctx.lineTo(points[1][0], points[1][1]);
-      ctx.lineTo(points[3][0], points[3][1]);
-      ctx.lineTo(points[4][0], points[4][1]);
-      ctx.lineTo(points[2][0], points[2][1]);
-      ctx.lineTo(points[0][0], points[0][1]);
-      ctx.stroke();
+    const fallbackPosts = [
+      {
+        title: 'Design de Narrativa em Jogos de Terror/Horror',
+        link: 'https://kaelangeli.substack.com/p/design-de-narrativa-em-jogos-de-terrorhorror',
+        pubDate: '2025-01-01 12:00:00',
+        description: 'Texto sobre design de narrativa em jogos de terror/horror, pensando atmosfera, tensão, medo, experiência do jogador e construção narrativa.',
+        categories: ['narrativa', 'terror']
+      }
+    ];
 
-      for (let i = 0; i < 80; i++) {
-        ctx.fillStyle = Math.random() > .85 ? 'rgba(156,246,246,.8)' : 'rgba(255,255,255,.28)';
-        ctx.beginPath();
-        ctx.arc(Math.random() * rect.width, Math.random() * rect.height, Math.random() * 1.8, 0, Math.PI * 2);
-        ctx.fill();
+    let loadedSubstackPosts = [];
+    let currentBlogFilter = 'all';
+    let currentBlogPage = 0;
+    const postsPerPage = 2;
+
+    function stripHtml(html = '') {
+      const div = document.createElement('div');
+      div.innerHTML = html;
+      return (div.textContent || div.innerText || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function escapeHtml(value = '') {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatPostDate(dateString) {
+      if (!dateString) return 'Recent publication';
+      const date = new Date(dateString);
+      if (Number.isNaN(date.getTime())) return 'Recent publication';
+      return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function inferPostTags(post) {
+      const text = `${post.title || ''} ${stripHtml(post.description || '')}`.toLowerCase();
+      const tags = [];
+      if (text.includes('narrativa') || text.includes('narrative') || text.includes('roteiro') || text.includes('writing')) tags.push('narrativa');
+      if (text.includes('terror') || text.includes('horror') || text.includes('medo')) tags.push('terror');
+      return tags.length ? tags : ['narrativa'];
+    }
+
+    function normalizePosts(items = []) {
+      return items.map(item => ({
+        title: item.title || 'Untitled publication',
+        link: item.link || 'https://kaelangeli.substack.com/',
+        pubDate: item.pubDate,
+        description: stripHtml(item.description || item.content || '').slice(0, 190),
+        categories: inferPostTags(item)
+      }));
+    }
+
+    function getFilteredPosts() {
+      return currentBlogFilter === 'all'
+        ? loadedSubstackPosts
+        : loadedSubstackPosts.filter(post => post.categories.includes(currentBlogFilter));
+    }
+
+    function updatePager(totalPosts) {
+      const pager = document.getElementById('substackPager');
+      const pageIndicator = document.getElementById('pageIndicator');
+      const postsCounter = document.getElementById('postsCounter');
+      const prevBtn = document.getElementById('prevPosts');
+      const nextBtn = document.getElementById('nextPosts');
+      const totalPages = Math.max(1, Math.ceil(totalPosts / postsPerPage));
+
+      if (!totalPosts || totalPages <= 1) {
+        pager.classList.add('hidden');
+        pager.classList.remove('flex');
+        return;
+      }
+
+      pager.classList.remove('hidden');
+      pager.classList.add('flex');
+      pageIndicator.textContent = `Page ${currentBlogPage + 1} / ${totalPages}`;
+      postsCounter.textContent = `Showing ${Math.min(postsPerPage, totalPosts - currentBlogPage * postsPerPage)} of ${totalPosts} loaded publications`;
+
+      prevBtn.disabled = currentBlogPage === 0;
+      nextBtn.disabled = currentBlogPage >= totalPages - 1;
+
+      [prevBtn, nextBtn].forEach(button => {
+        button.classList.toggle('opacity-40', button.disabled);
+        button.classList.toggle('cursor-not-allowed', button.disabled);
+      });
+    }
+
+    function renderSubstackPosts() {
+      const container = document.getElementById('substackPosts');
+      const status = document.getElementById('substackStatus');
+      const posts = getFilteredPosts();
+      const totalPages = Math.max(1, Math.ceil(posts.length / postsPerPage));
+
+      if (currentBlogPage > totalPages - 1) currentBlogPage = Math.max(0, totalPages - 1);
+
+      if (!posts.length) {
+        status.classList.remove('hidden');
+        status.textContent = 'No publications found for this filter.';
+        container.innerHTML = '';
+        updatePager(0);
+        return;
+      }
+
+      status.classList.add('hidden');
+
+      const start = currentBlogPage * postsPerPage;
+      const visiblePosts = posts.slice(start, start + postsPerPage);
+
+      container.innerHTML = visiblePosts.map(post => `
+        <article class="post-card rounded-[1.6rem] border border-cream/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:border-peach/60 hover:bg-white/10">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="rounded-full bg-cyan/15 px-3 py-1 text-[11px] font-black uppercase tracking-[.16em] text-cyan">
+              ${escapeHtml(formatPostDate(post.pubDate))}
+            </span>
+            ${post.categories.map(category => `
+              <span class="rounded-full bg-cream/10 px-3 py-1 text-[11px] font-black uppercase tracking-[.16em] text-cream/60">
+                ${escapeHtml(category)}
+              </span>
+            `).join('')}
+          </div>
+
+          <h3 class="mt-5 font-display text-3xl leading-tight">${escapeHtml(post.title)}</h3>
+          <p class="mt-4 text-sm leading-7 text-cream/65">${escapeHtml(post.description || 'Open the publication to read more.')}${post.description ? '...' : ''}</p>
+
+          <a href="${escapeHtml(post.link)}" target="_blank" rel="noopener" class="mt-6 inline-flex rounded-full bg-peach px-5 py-3 text-sm font-black text-wine2 transition hover:-translate-y-1">
+            Read publication
+          </a>
+        </article>
+      `).join('');
+
+      updatePager(posts.length);
+    }
+
+    async function loadSubstackPosts() {
+      const status = document.getElementById('substackStatus');
+
+      try {
+        const response = await fetch(buildSubstackApiUrl());
+        if (!response.ok) throw new Error('Could not fetch Substack feed.');
+
+        const data = await response.json();
+        if (data.status !== 'ok' || !Array.isArray(data.items)) {
+          throw new Error('Invalid feed response.');
+        }
+
+        loadedSubstackPosts = normalizePosts(data.items);
+        currentBlogPage = 0;
+        renderSubstackPosts();
+      } catch (error) {
+        loadedSubstackPosts = fallbackPosts;
+        currentBlogPage = 0;
+        status.textContent = 'Could not load the live feed right now. Showing a fallback publication.';
+        renderSubstackPosts();
       }
     }
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    const nodeData = {
-      premissa: ['Premissa viva', 'A pergunta dramática do jogo aparece primeiro. O visitante não lê uma sinopse: ele entende qual tensão sustenta toda a experiência.'],
-      personagem: ['Personagem em conflito', 'Mostra desejos, medos, contradições e como o arco do personagem muda conforme o jogador age.'],
-      conflito: ['Conflito sistêmico', 'A narrativa não vive só no texto: ela aparece nas regras, restrições, recursos e consequências.'],
-      escolha: ['Escolha com custo', 'Cada decisão revela caráter, altera relações e abre uma versão diferente da história.'],
-      consequencia: ['Eco narrativo', 'O site evidencia o payoff: como escolhas retornam depois em mundo, diálogos, finais e memória emocional.']
-    };
-
-    const nodeTitle = document.getElementById('nodeTitle');
-    const nodeDescription = document.getElementById('nodeDescription');
-    document.querySelectorAll('.orb').forEach(orb => {
-      orb.addEventListener('click', () => {
-        document.querySelectorAll('.orb').forEach(item => item.classList.remove('active'));
-        orb.classList.add('active');
-        const [title, text] = nodeData[orb.dataset.node];
-        nodeTitle.textContent = title;
-        nodeDescription.textContent = text;
-      });
-    });
-
-    const layers = {
-      trama: ['Trama invisível', 'Mistério: 82%', 'Mostra como a história principal se organiza por trás da experiência: objetivo, revelação, virada, falsa pista e payoff. O visitante vê a arquitetura da narrativa, não apenas a sinopse.', 'Uma linha do tempo clicável mostra quando o jogador descobre cada informação e como isso altera a percepção do conflito.'],
-      personagem: ['Personagem em tensão', 'Arco: 74%', 'Apresenta personagens por desejo, ferida, contradição e mudança. Em vez de ficha biográfica, o site mostra como cada personagem reage às escolhas do jogador.', 'Um painel compara falas antes/depois de uma decisão importante, revelando evolução emocional e subtexto.'],
-      mundo: ['Mundo que conta', 'Lore: 91%', 'Transforma worldbuilding em exploração: lugares, objetos, rituais, interfaces e ruínas carregam informação narrativa sem depender de exposição.', 'O visitante clica em objetos de uma cena e descobre fragmentos de lore, pistas falsas e detalhes de cultura.'],
-      sistema: ['Sistema narrativo', 'Agência: 68%', 'Explica como diálogo, quest, moralidade, reputação ou variáveis internas sustentam a narrativa jogável.', 'Um mini fluxograma mostra estados de missão, variáveis de personagem e consequências futuras.'],
-      emocao: ['Curva emocional', 'Impacto: 87%', 'Mostra ritmo, tensão, silêncio, alívio e virada emocional. A narrativa é vendida como experiência sentida, não como resumo.', 'Uma timeline emocional destaca os momentos de curiosidade, medo, culpa, decisão e eco final.']
-    };
-
-    const layerTitle = document.getElementById('layerTitle');
-    const layerMetric = document.getElementById('layerMetric');
-    const layerText = document.getElementById('layerText');
-    const layerExample = document.getElementById('layerExample');
-
-    document.querySelectorAll('.layer-btn').forEach(button => {
+    document.querySelectorAll('.blog-filter').forEach(button => {
       button.addEventListener('click', () => {
-        document.querySelectorAll('.layer-btn').forEach(btn => {
-          btn.className = 'layer-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left font-black text-cream/70';
-        });
-        button.className = 'layer-btn rounded-2xl border border-neon/30 bg-neon px-5 py-4 text-left font-black text-void';
-        const [title, metric, text, example] = layers[button.dataset.layer];
-        layerTitle.textContent = title;
-        layerMetric.textContent = metric;
-        layerText.textContent = text;
-        layerExample.textContent = example;
-      });
-    });
-
-    const choiceState = {
-      truth: {
-        scores: ['Empatia 50', 'Verdade 85', 'Risco 55'],
-        story: 'A IA libera o arquivo bruto. A voz falha três vezes antes de dizer: “Você estava na sala quando tudo começou.”',
-        reading: 'O jogador passa a desconfiar do próprio protagonista, mas sente que a história está sendo honesta com ele.',
-        consequence: 'Desbloqueia uma testemunha no terceiro ato e remove uma rota de final confortável.',
-        design: 'Escolha de alto custo moral: recompensa informação, mas aumenta exposição e risco.'
-      },
-      lie: {
-        scores: ['Empatia 25', 'Verdade 20', 'Risco 70'],
-        story: 'A versão confortável substitui o arquivo. Por um segundo, todas as luzes da estação piscam como se alguém tivesse prendido a respiração.',
-        reading: 'O jogador recebe controle imediato, mas percebe que o mundo reage à mentira de forma orgânica.',
-        consequence: 'Abre uma rota rápida, porém personagens sensíveis à verdade recusam ajuda depois.',
-        design: 'Escolha tentadora: melhora progressão curta, piora confiança e cria payoff negativo.'
-      },
-      silence: {
-        scores: ['Empatia 65', 'Verdade 55', 'Risco 35'],
-        story: 'Entre uma gravação e outra, existe um ruído. No ruído, uma criança conta até sete. A IA não sabia que esse trecho ainda existia.',
-        reading: 'O silêncio vira ação. O jogador aprende que nem toda escolha precisa ser verbal para ter agência.',
-        consequence: 'Revela uma pista lateral e muda a leitura de uma cena antiga sem confrontar ninguém.',
-        design: 'Escolha contemplativa: premia observação, paciência e leitura ambiental.'
-      }
-    };
-
-    const storyText = document.getElementById('storyText');
-    const empathyScore = document.getElementById('empathyScore');
-    const truthScore = document.getElementById('truthScore');
-    const riskScore = document.getElementById('riskScore');
-    const readingOutput = document.getElementById('readingOutput');
-    const consequenceOutput = document.getElementById('consequenceOutput');
-    const designOutput = document.getElementById('designOutput');
-
-    document.querySelectorAll('.choice-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const data = choiceState[button.dataset.choice];
-        empathyScore.textContent = data.scores[0];
-        truthScore.textContent = data.scores[1];
-        riskScore.textContent = data.scores[2];
-        storyText.textContent = data.story;
-        readingOutput.textContent = data.reading;
-        consequenceOutput.textContent = data.consequence;
-        designOutput.textContent = data.design;
-      });
-    });
-
-    document.querySelectorAll('.timeline-dot').forEach(button => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.timeline-dot').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.chapter-panel').forEach(panel => panel.classList.remove('active'));
+        document.querySelectorAll('.blog-filter').forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
-        document.querySelectorAll('.chapter-panel')[Number(button.dataset.chapter)].classList.add('active');
+        currentBlogFilter = button.dataset.blogFilter;
+        currentBlogPage = 0;
+        renderSubstackPosts();
       });
     });
 
-    const dossiers = {
-      vidro: {
-        title: 'Cidade de Vidro',
-        problem: 'Como representar mentira sem depender de uma barra moral genérica?',
-        system: 'Cada mentira altera pequenas rotas urbanas, falas de NPCs e o nível de distorção visual do mapa. A cidade vira uma metáfora navegável da versão que o jogador escolheu sustentar.',
-        sample: '“A rua que você jurou nunca ter cruzado agora termina na sua porta.”',
-        proof: 'Prova domínio de narrativa sistêmica: a decisão do jogador não muda apenas texto, muda espaço, progressão e leitura emocional.'
-      },
-      sinal: {
-        title: 'Depois do Sinal',
-        problem: 'Como criar emoção com poucos personagens e quase nenhuma cutscene?',
-        system: 'Mensagens de rádio mudam conforme a ordem de exploração. A mesma frase pode soar como cuidado, ameaça ou despedida dependendo do contexto descoberto.',
-        sample: '“Se você ouvir isso antes do amanhecer, não procure por mim. Se ouvir depois, finja que procurei por você.”',
-        proof: 'Mostra controle de subtexto, ritmo, economia de diálogo e montagem narrativa por contexto.'
-      },
-      orbita: {
-        title: 'Órbita dos Mortos',
-        problem: 'Como apresentar lore sci-fi denso sem transformar o jogo em enciclopédia?',
-        system: 'Objetos, logs corrompidos, rotinas de IA e falhas sonoras constroem a história de uma estação que continua funcionando depois de perder sua tripulação.',
-        sample: '“A IA ainda prepara café para 47 pessoas. Há três anos, ninguém corrige esse número.”',
-        proof: 'Evidencia worldbuilding aplicado: cultura, tecnologia e trauma aparecem por ambiente, comportamento e repetição.'
+    document.getElementById('prevPosts')?.addEventListener('click', () => {
+      if (currentBlogPage > 0) {
+        currentBlogPage -= 1;
+        renderSubstackPosts();
       }
-    };
-
-    const dossierModal = document.getElementById('dossierModal');
-    const closeDossier = document.getElementById('closeDossier');
-    const dossierTitle = document.getElementById('dossierTitle');
-    const dossierProblem = document.getElementById('dossierProblem');
-    const dossierSystem = document.getElementById('dossierSystem');
-    const dossierSample = document.getElementById('dossierSample');
-    const dossierProof = document.getElementById('dossierProof');
-
-    document.querySelectorAll('.open-dossier').forEach(button => {
-      button.addEventListener('click', () => {
-        const data = dossiers[button.dataset.dossier];
-        dossierTitle.textContent = data.title;
-        dossierProblem.textContent = data.problem;
-        dossierSystem.textContent = data.system;
-        dossierSample.textContent = data.sample;
-        dossierProof.textContent = data.proof;
-        dossierModal.classList.remove('hidden');
-        dossierModal.classList.add('flex');
-        document.body.style.overflow = 'hidden';
-      });
     });
 
-    function closeDossierModal() {
-      dossierModal.classList.add('hidden');
-      dossierModal.classList.remove('flex');
-      document.body.style.overflow = '';
-    }
+    document.getElementById('nextPosts')?.addEventListener('click', () => {
+      const totalPages = Math.ceil(getFilteredPosts().length / postsPerPage);
+      if (currentBlogPage < totalPages - 1) {
+        currentBlogPage += 1;
+        renderSubstackPosts();
+      }
+    });
 
-    closeDossier.addEventListener('click', closeDossierModal);
-    dossierModal.addEventListener('click', event => {
-      if (event.target === dossierModal) closeDossierModal();
+    loadSubstackPosts();
+
+    document.getElementById('menuBtn')?.addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
     });
   </script>
 </body>
